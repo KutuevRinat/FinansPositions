@@ -386,11 +386,19 @@ Public Class ParentBrokerReportLoader
 							End If
 						Else
 							Do
-								If DtInClmn Then NBeg = rngRow.Column Else NBeg = rngRow.Row
-								NEnd = NBeg
-								Call InsertArroyInTbl(ImpTbl, ExpTbl, DtInClmn, rdTblStrct("ExpField").ToString.Trim, NBeg, NEnd, aFieldsNClmns)
-								rngRow = rngTbl.Find(rdTblStrct("ExpField").ToString.Trim, rngRow, , LookAt:=Excel.XlLookAt.xlWhole)
-							Loop While rngRow IsNot Nothing Or (rdTblStrct("Repeat") And NBeg < IIf(DtInClmn, rngRow.Column, rngRow.Row))
+								Do
+									If DtInClmn Then NBeg = rngRow.Column Else NBeg = rngRow.Row
+									NEnd = NBeg
+									Call InsertArroyInTbl(ImpTbl, ExpTbl, DtInClmn, rdTblStrct("ExpField").ToString.Trim, NBeg, NEnd, aFieldsNClmns)
+									rngRow = rngTbl.Find(rdTblStrct("ExpField").ToString.Trim, rngRow, , LookAt:=Excel.XlLookAt.xlWhole)
+								Loop While (rdTblStrct("Repeat") And NBeg < IIf(DtInClmn, rngRow.Column, rngRow.Row))
+								If Skip = True Then
+									rngLastCell = rngTbl(rngTbl.Rows.Count, 1)
+									rngTbl = .Cells(rngLastCell.Row + 2, rngLastCell.Column).CurrentRegion
+									rngRow = rngTbl.Find(rdTblStrct("ExpField").ToString.Trim, After:=rngTbl(1, 1), LookIn:=Excel.XlFindLookIn.xlValues, LookAt:=Excel.XlLookAt.xlWhole)
+								End If
+							Loop While Not rngRow Is Nothing
+							rngTbl = .Cells(rngNameTbl.Row + TblBeg, rngNameTbl.Column).CurrentRegion
 						End If
 					End If
 				End While
@@ -403,11 +411,9 @@ Public Class ParentBrokerReportLoader
 					'обрабатываем разрыв в таблице
 					If Skip = True Then
 						rngLastCell = rngTbl(rngTbl.Rows.Count, 1)
-						Dim ProvercaI As Integer
-						ProvercaI = rngLastCell.Row + 2
+						'Dim ProvercaI As Integer
 						rngTbl = .Cells(rngLastCell.Row + 2, rngLastCell.Column).CurrentRegion
 						rngTbl = .Range(rngTbl(0, 1), rngTbl(rngTbl.Rows.Count, 1))
-						ProvercaI = rngTbl(1, 1).column
 					End If
 					rngRow = rngTbl.Find(SeparBeg, After:=rngTbl(1, 1), LookIn:=Excel.XlFindLookIn.xlValues, LookAt:=Excel.XlLookAt.xlPart)
 					If rngRow Is Nothing Then
