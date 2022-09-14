@@ -535,7 +535,8 @@ Public Class ParentBrokerReportLoader
 		End With
 	End Sub
 
-	Protected Sub InsertArroyInTbl(ImpTbl As String, ExpTbl As String, ByVal DtInClmn As Boolean, ExpFld As String, ByVal NDataBeg As Integer,
+	Protected Sub InsertArroyInTbl(ImpTbl As String, ExpTbl As String,
+		ByVal DtInClmn As Boolean, ExpFld As String, ByVal NDataBeg As Integer,
 																 ByVal NDataEnd As Integer, ByRef aFieldsNClmns() As FieldsNClmn, Optional ByVal aSeparFieldsData() As FieldsData = Nothing)
 		'вставляет данные в таблицу базы данных
 		Dim strInsert As String
@@ -714,3 +715,85 @@ Public Class ParentBrokerReportLoader
 		Stop
 	End Sub
 End Class
+
+'Public Class ParentXlLoader
+'	Protected DirName As String
+'	Protected strCn As String
+'	Protected strCnUser As String
+'	Protected Structure ImpFunct
+'		Dim NImpFunct As String
+'		Dim vImpFunct As Boolean
+'	End Structure
+
+'	Protected aImpFunct(0 To 10) As ImpFunct
+
+'	Public Property ConnectionString() As String
+'		Protected Get
+'			Return ManagerFP.My.Settings.CnStrSQLClient
+'		End Get
+'		Set(ConStringValue As String)
+'			strCnUser = ConStringValue
+'			If strCnUser IsNot Nothing And strCnUser <> "" Then
+'				strCn = strCnUser
+'			Else
+'				strCnUser = ManagerFP.My.Settings.CnStrSQLClient
+'				strCn = ManagerFP.My.Settings.CnStrSQLClient + "; User ID=Rinat; Password = 'RInnat'"
+'			End If
+'		End Set
+'	End Property
+
+'	Friend Rsp As String 'строка сообщений
+'	Protected oXL As Excel.Application = Nothing
+'	Protected Structure FieldsData
+'		Dim Fld As String
+'		Dim FldData As String
+'	End Structure
+
+'	Public Sub New(ByVal ConnectionString As String, ByVal PathToFile As String)
+
+'		oXL = New Excel.Application
+
+'		DirName = PathToFile
+'		strCnUser = ConnectionString
+'		If strCnUser <> "" Then
+'			strCn = strCnUser
+'		Else
+'			strCnUser = ManagerFP.My.Settings.CnStrSQLClient
+'			strCn = ManagerFP.My.Settings.CnStrSQLClient + "; User ID=Rinat; Password = 'RInnat'"
+'		End If
+
+'		'контролер для запуска процедур базы данных
+'		'aImpFunct(0).NImpFunct = "spImpPrices"
+'		'aImpFunct(0).vImpFunct = True
+'		'aImpFunct(1).NImpFunct = "spImpOtherStockAct"
+'		'aImpFunct(1).vImpFunct = True
+'		'aImpFunct(2).NImpFunct = "spImpOtherDerivAct"
+'		'aImpFunct(2).vImpFunct = True
+'		'aImpFunct(3).NImpFunct = "spImpCurAct"
+'		'aImpFunct(3).vImpFunct = True
+'		'aImpFunct(4).NImpFunct = "spImpStockAct"
+'		'aImpFunct(4).vImpFunct = True
+'		'aImpFunct(5).NImpFunct = "spImpRedemption"
+'		'aImpFunct(5).vImpFunct = True
+'		'aImpFunct(6).NImpFunct = "spImpDvdCpnPartP"
+'		'aImpFunct(6).vImpFunct = True
+'		'aImpFunct(7).NImpFunct = "spImpFutureAct"
+'		'aImpFunct(7).vImpFunct = True
+'		'aImpFunct(8).NImpFunct = "spImpOptionAct"
+'		'aImpFunct(8).vImpFunct = False
+'		'aImpFunct(9).NImpFunct = "spImpFutureRecalc"
+'		'aImpFunct(9).vImpFunct = True
+'		'aImpFunct(10).NImpFunct = "spImpOtherSecurAct"
+'		'aImpFunct(10).vImpFunct = True
+
+'	End Sub
+
+'	Public Sub Load()
+
+'	End Sub
+
+'	Protected Sub OrdererFilesReport()
+
+'	End Sub
+
+'End Class

@@ -20,16 +20,16 @@ Module Loader
 	'End Sub
 	Sub OrdererFilesReport(pathDirReports As String) 'упорядочивает файлы-отчеты в директории по датам и запускает загрузчики 
 
-    Dim DirReports As IO.DirectoryInfo = New IO.DirectoryInfo(pathDirReports) 'объект директории 
-    Dim FileReport As IO.FileInfo() = DirReports.GetFiles()
-    Dim q As Integer 'счетчик файлов
-    Dim qq As Integer 'вспомогательный счетчик файлов для упорядочивания
-    Dim Up_list_files(150) As String 'массив имен файлов в директории
-    'Dim Data_list_files(150) As Date 'массив дат последних изменений в директориях
-    Dim Files(0 To 150) As FileAtributes
-    Const conKitFinanceBroker = "КИТ Финанс(АО)"
-    Const conSberbankBroker = "ПАО Сбербанк"
-    Const conBCS = "ООО Компания БКС"
+		Dim DirReports As IO.DirectoryInfo = New IO.DirectoryInfo(pathDirReports) 'объект директории 
+		Dim FileReport As IO.FileInfo() = DirReports.GetFiles()
+		Dim q As Integer 'счетчик файлов
+		Dim qq As Integer 'вспомогательный счетчик файлов для упорядочивания
+		Dim Up_list_files(150) As String 'массив имен файлов в директории
+		'Dim Data_list_files(150) As Date 'массив дат последних изменений в директориях
+		Dim Files(0 To 150) As FileAtributes
+		Const conKitFinanceBroker = "КИТ Финанс(АО)"
+		Const conSberbankBroker = "ПАО Сбербанк"
+		Const conBCS = "ООО Компания БКС"
 		Dim Loader As ParentBrokerReportLoader
 
 		For Each f As IO.FileInfo In FileReport
@@ -88,14 +88,14 @@ Module Loader
 		Next
 		'упорядочиваем по дате создания
 		Dim Fqq As FileAtributes
-    For qq = 0 To q - 2
-      If Files(qq).FileDate > Files(qq + 1).FileDate Then
-        Fqq = Files(qq)
-        Files(qq) = Files(qq + 1)
-        Files(qq + 1) = Fqq
-        If qq > 0 Then qq = qq - 2
-      End If
-    Next qq
+		For qq = 0 To q - 2
+			If Files(qq).FileDate > Files(qq + 1).FileDate Then
+				Fqq = Files(qq)
+				Files(qq) = Files(qq + 1)
+				Files(qq + 1) = Fqq
+				If qq > 0 Then qq = qq - 2
+			End If
+		Next qq
 		Loader = New ParentBrokerReportLoader(pathDirReports, "f", "2020-01-01", "a", "m", "b")
 		For qq = 0 To q - 1
 			Loader.FileName = Files(qq).FileName
@@ -108,6 +108,18 @@ Module Loader
 		Loader = Nothing
 
 
+	End Sub
+
+	Sub Proba()
+		Dim M(1) As Integer
+		Dim Q As Integer
+		M(1) = Nothing
+		Q = UBound(M)
+		'	'	Dim pathDirReports As String = "h:\Работа\ИнтернетТрейдинг\Выписка\дебаг\"
+		'	'	Dim Dt As DataTable
+		'	'	Dim DirReports As IO.DirectoryInfo = New IO.DirectoryInfo(pathDirReports) 'объект директории 
+		'	'	Dim FileReport As IO.FileInfo() = DirReports.GetFiles()
+		'	'	Dt = FileReport
 	End Sub
 
 End Module
